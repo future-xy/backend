@@ -89,7 +89,6 @@ BackendModelInstance::BackendModelInstance(
            std::to_string(device_id_) + " using artifact '" +
            artifact_filename_ + "'")
               .c_str());
-      ;123-123;dsaf;vz--=--
       // cudaDeviceProp cuprops;
       // cudaError_t cuerr = cudaGetDeviceProperties(&cuprops, device_id_);
       // if (cuerr != cudaSuccess) {
