@@ -85,9 +85,9 @@ BackendModelInstance::BackendModelInstance(
 #if defined(TRITON_ENABLE_GPU)
       LOG_MESSAGE(
           TRITONSERVER_LOG_VERBOSE,
-          (std::string("Creating instance ") + name_ + " on GPU " +
-           std::to_string(device_id_) + " using artifact '" +
-           artifact_filename_ + "'")
+          (std::string("Instance ") + name_ + " on GPU " +
+            std::to_string(device_id_) + " using artifact '" +
+            artifact_filename_ + " will be created lazily")
               .c_str());
       // cudaDeviceProp cuprops;
       // cudaError_t cuerr = cudaGetDeviceProperties(&cuprops, device_id_);
