@@ -83,31 +83,31 @@ BackendModelInstance::BackendModelInstance(
     }
     case TRITONSERVER_INSTANCEGROUPKIND_GPU: {
 #if defined(TRITON_ENABLE_GPU)
-      cudaDeviceProp cuprops;
-      cudaError_t cuerr = cudaGetDeviceProperties(&cuprops, device_id_);
-      if (cuerr != cudaSuccess) {
-        throw BackendModelInstanceException(TRITONSERVER_ErrorNew(
-            TRITONSERVER_ERROR_INTERNAL,
-            (std::string("unable to get CUDA device properties for ") + name_ +
-             ": " + cudaGetErrorString(cuerr))
-                .c_str()));
-      }
+      // cudaDeviceProp cuprops;
+      // cudaError_t cuerr = cudaGetDeviceProperties(&cuprops, device_id_);
+      // if (cuerr != cudaSuccess) {
+      //   throw BackendModelInstanceException(TRITONSERVER_ErrorNew(
+      //       TRITONSERVER_ERROR_INTERNAL,
+      //       (std::string("unable to get CUDA device properties for ") + name_ +
+      //        ": " + cudaGetErrorString(cuerr))
+      //           .c_str()));
+      // }
 
-      const std::string cc =
-          std::to_string(cuprops.major) + "." + std::to_string(cuprops.minor);
-      common::TritonJson::Value cc_names;
-      common::TritonJson::Value cc_name;
-      if ((model_config.Find("cc_model_filenames", &cc_names)) &&
-          (cc_names.Find(cc.c_str(), &cc_name))) {
-        cc_name.AsString(&artifact_filename_);
-      }
+      // const std::string cc =
+      //     std::to_string(cuprops.major) + "." + std::to_string(cuprops.minor);
+      // common::TritonJson::Value cc_names;
+      // common::TritonJson::Value cc_name;
+      // if ((model_config.Find("cc_model_filenames", &cc_names)) &&
+      //     (cc_names.Find(cc.c_str(), &cc_name))) {
+      //   cc_name.AsString(&artifact_filename_);
+      // }
 
-      LOG_MESSAGE(
-          TRITONSERVER_LOG_VERBOSE,
-          (std::string("Creating instance ") + name_ + " on GPU " +
-           std::to_string(device_id_) + " (" + cc + ") using artifact '" +
-           artifact_filename_ + "'")
-              .c_str());
+      // LOG_MESSAGE(
+      //     TRITONSERVER_LOG_VERBOSE,
+      //     (std::string("Creating instance ") + name_ + " on GPU " +
+      //      std::to_string(device_id_) + " (" + cc + ") using artifact '" +
+      //      artifact_filename_ + "'")
+      //         .c_str());
 #elif !defined(TRITON_ENABLE_MALI_GPU)
       throw BackendModelInstanceException(TRITONSERVER_ErrorNew(
           TRITONSERVER_ERROR_INTERNAL, "GPU instances not supported"));
